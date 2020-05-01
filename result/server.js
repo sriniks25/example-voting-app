@@ -1,6 +1,6 @@
 var express = require('express'),
     async = require('async'),
-    pg = require("pg"),
+    pool = new pg.Pool(),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
@@ -19,7 +19,7 @@ io.sockets.on('connection', function (socket) {
 async.retry(
   {times: 1000, interval: 1000},
   function(callback) {
-    pg.connect('postgres://postgres_user:postgres_password@db/postgres', function(err, client, done) {
+    pool.connect('postgres://postgres_user:postgres_password@db/postgres', function(err, client, done) {
       if (err) {
         console.error("Waiting for db");
       }
