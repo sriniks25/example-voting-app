@@ -1,12 +1,14 @@
 var express = require('express'),
     async = require('async'),
-    pool = new pg.Pool(),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
     app = express(),
     server = require('http').Server(app),
     io = require('socket.io')(server);
+
+const { Pool } = require('pg');
+const pool = new Pool();
 
 io.set('transports', ['polling']);
 var port = process.env.PORT || 4000;
